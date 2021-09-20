@@ -15,3 +15,5 @@ He also uses filetransfer.dll by Azura Levidre (https://levidre.github.io/my-sao
 This lets him get TCG information from Scryfall and other sources, so he can tell you about Magic: The Gathering, Pokémon, Yu-Gi-Oh!, and other cards.
 
 He hails from the SBARGv2 roleplay setting, feel free to check out our forums at https://letssosl.boards.net/
+
+This ghost uses Zarla's template! You can find it at http://www.ashido.com/ukagaka/!

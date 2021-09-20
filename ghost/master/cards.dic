@@ -1,0 +1,18 @@
+CardLookup
+{
+    "\0\s[0]\b2Oh you want a card? What game?" //character dialog
+    "\n\n\_q\b2" //initialize menu
+    "\![*]\q[Magic: The Gathering,scryfall]\n"
+	"\![*]\q[Nevermind,MenuRun]\n"
+}
+//MTG Card handling.
+Select.scryfall
+	{
+		Scryfall
+	}
+Scryfall
+{
+    "\0\s[0]\b2Getting Card Names from Scryfall!\n"
+    FUNCTIONEX("filetransfer.dll",download,https://api.scryfall.com/catalog/card-names,./tmp/card-names.json)
+    "\0\s[4]\b2...I'm not sure how to parse this yet....... Sorry :(\n"
+}
