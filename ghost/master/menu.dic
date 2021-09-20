@@ -47,8 +47,8 @@ MenuRun
 	  //***********************************************************************
 	}
 	--
- 	"\![*]\q[Say something,altalk]\n"
-	"\![*]\q[Show me a card,cardlookup]\n"
+ 	"\![*]\q[Say something,altalk]\n/
+	\![*]\q[Show me a card,cardlookup]\n"
 	
 	//This option will force the ghost to say something from aitalk if the user clicks it. Just replace "Say something" and "Say something 2" with whatever captions you think would be appropriate for such an option. IF you don't want two options for captions, delete one of the lines.
 	//Advanced users, you can add multiple captions for any option you add to a menu you make just like this, as long as you separate it from the other options into its own section with two dashes above and below.
