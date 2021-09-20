@@ -13,6 +13,6 @@ Select.scryfall
 Scryfall
 {
     "\0\s[0]\b2Getting Card Names from Scryfall!\n"
-    FUNCTIONEX("filetransfer.dll",download,https://api.scryfall.com/catalog/card-names,./tmp/card-names.json)
+    FUNCTIONEX("filetransfer.dll","download","https://api.scryfall.com/catalog/card-names","./tmp/card-names.json")
     "\0\s[4]\b2...I'm not sure how to parse this yet....... Sorry :(\n"
 }

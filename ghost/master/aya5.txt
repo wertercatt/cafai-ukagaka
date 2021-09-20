@@ -6,6 +6,7 @@ charset.output, UTF-8
 charset.file, UTF-8
 charset.save, UTF-8
 charset.extension, UTF-8
+msglang,english
 
 
 //---- Dictionary Files ---------------------------------------------------------------------
@@ -16,7 +17,8 @@ charset.extension, UTF-8
 dic, shiori3.dic		
 dic, string.dic			
 dic, aitalk.dic			
-dic, bootend.dic		
+dic, bootend.dic
+dic, cards.dic		
 dic, mouse.dic			
 dic, etc.dic			
 dic, menu.dic
@@ -24,7 +26,7 @@ dic, word.dic
 dic, commu.dic
 dic, nameteach.dic
 dic, anchor.dic
-dic, cards.dic
+
 
 //---- Log Location -------------------------------------------------------------------------
 //I'm not entirely sure what this does, but basically don't touch it.
