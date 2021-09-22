@@ -1,7 +1,7 @@
 ﻿//---------------------------Booting and Ending--------------------------
 
-//This .dic file is set aside for booting and ending dialogue, as well as a few other functions. Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html), in particular the page about SakuraScript, for more details about how to properly format ghost dialogue! I don't want to have to repeat myself in every .dic file we go through, we'll both get tired of that by the time we're through, haha.
-//I will however reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
+//This .dic file is set aside for booting and ending dialogue, as well as a few other functions. Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html), in particular the page about SakuraScript, for more details about how to properly format ghost dialogue!
+//You should be editing these in Notepad++, and in particular, you should set the Language to C to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
 //It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
 
 //Much of this file you will only have to set up once, so take heart!
@@ -11,7 +11,9 @@
 //These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
 
 //--A Note about Functions--
-//A function that begins with On, such as OnFirstBoot here, can be called from anywhere in any .dic file by using \![raise]. A function that does NOT, however, can only be called within that .dic file, I believe. You can create your own On functions all over the place if you want, there's just a difference between OnDoodlebop and Doodlebop, if you get me. See the walkthrough page about coding for more about creating functions.
+//A function that begins with On, such as OnFirstBoot here, can be called from anywhere in any .dic file by using \![raise] or by just sticking OnFunction somewhere. A function that does NOT start with On, however, can be a bit finicky. You can create your own functions all over the place if you want, there's just a difference between OnDoodlebop and Doodlebop, if you get me. See the walkthrough page about coding for more about creating functions.
+
+//If you're having trouble getting a function of yours to run, like Doodlebop, try changing it to OnDoodlebop and see if that fixes it.
 //***********************************************************************
 
 
@@ -20,7 +22,7 @@
 //OnFirstBoot is, as you can probably guess, what happens when your user first boots up your ghost. This is where you'll want to set up an introduction and ask your user for information your ghost will need, like their name and what pronouns they'll be using. This will only run the first time they are booted!
 
 //*********************Advanced User Info*******************************
-//Because this only runs once and under an odd set of circumstances, it can be hard to test if this function is working properly. Trying to run the entire function using \![raise,OnFirstBoot] will instead bring up your alternate dialogue, so sadly you can't check it that way. Because OnFirstBoot has the / slash I talked about in the walkthrough page on scripting, you can't run it very easily through Script Input either unless you do so in pieces, and you won't be able to check your menu options. You CAN however paste it all into your Test Variable in menu.dic, so you can try that instead to test it properly. Only paste your dialogue/choices, not the values, and make sure to delete it from the test variable when you're through.
+//Because this only runs once and under an odd set of circumstances, it can be hard to test if this function is working properly. Trying to run the entire function using \![raise,OnFirstBoot] will instead bring up your alternate dialogue, so sadly you can't check it that way. You CAN get it to run using \![raise,OnFirstBoot,0] though.
 
 //If you're going to be adding new variables and values and such, make sure you define them all in OnFirstBoot! You can make any value you want, but it has to equal SOMEthing to exist at first. Then you can do whatever with it.
 //***********************************************************************
@@ -28,26 +30,28 @@
 
 OnFirstBoot
 {
-//OnFirstBoot begins with some code at first to define some values your ghost will be using. I'll briefly touch on what they are, but for the most part you should not need to edit any of these and you can safely ignore most of them (except nowshell if you've changed your shell folder's name from default_shell). Definitely don't delete them unless you know what you're doing.
+//OnFirstBoot begins with some code at first to define some values your ghost will be using. I'll briefly touch on what they are, but for the most part you should not need to edit any of these and you can safely ignore most of them (except nowshell if you've changed your shell folder's name from master). Definitely don't delete them unless you know what you're doing.
 
  	lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
+	passhour = 0
 	passmin = 0 
-	passsec = 0 // These two keep track of the time.
+	passsec = 0 // These keep track of the time.
  	username         = "USER" //This sets a temporary name for the user. It'll be replaced when they tell the ghost their name.
 	stroke           = 0	// Sets their being-pet state to zero.
  	teachusername    = 0	// Related to them learning your name.
 	mikireflag       = 0	// Determines behavior at certain points.
- 	aitalkinterval = 400 //Their default talk rate.
+ 	aitalkinterval = 300 //Their default talk rate.
  	birthdayprint = "????" //A temporary value for the user's birthday.
 	talktime = "5 minutes" //How the value aitalkinterval will display in the config menu.
 	deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic). 
-	nowshell = "default_shell" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here.
+	nowshell = "master" //This is for a special if check in aitalk.dic to see what shell the ghost is using. You should use the name of your default shell folder here.
+	firstboot = 1 //This marks that this is the first time you've run the ghost. It's so it won't reroute to general name changing dialogue when the user inputs their name.
 	
 	if reference0 == 0 //Don't touch this line.
  	{
 		//---- Alright, here is where the dialogue for your ghost begins! Again, I hope you've studied up on the walkthrough's guide to dialogue coding! However, there are a few unique things about this first conversation that you should keep in mind.
 		//Unlike most dialogue, it should start with "\![enter,passivemode]". Passivemode basically ensures that the balloons won't disappear, the choices won't time out, the ghosts won't talk randomly, you can't bring up menus, and makes sure that this dialogue plays through to the end correctly. This is one of the very few instances you'll ever use it, so make sure to get out of it at the end! I'll tell you when, so don't worry.
-		//You'll also notice that this dialogue is black instead of grey. This is because of the use of the backwards slash as mentioned in the advanced section of the SakuraScripting page. Do you see near the bottom where it has \n\n[half]/ with the other slash at the end before the choices are listed? You will want to replace dialogue up that \n\n[half], but do not mess with the choices beyond that unless you know what you're doing.
+		//In Notepad++ with C language, you'll also notice that this dialogue is black instead of grey. This is because of the use of the backwards slash as mentioned in the advanced section of the SakuraScripting page. Do you see near the bottom where it has \n\n[half]/ with the other slash at the end before the choices are listed? You will want to replace dialogue up that \n\n[half], but do not mess with the choices beyond that unless you know what you're doing.
 		//Always make sure to keep your dialogue in the quotation marks! And remember, you can't use quotation marks IN dialogue either. You can use two single apostrophes instead if you must. And REMEMBER what I said about \![enter,passivemode]! Do NOT delete that tag!
 		
 		"\![enter,passivemode]\1\s[10]\0\s[0]Hello, and welcome to the Girl and Triangle Ghost Template. \w5My name is Girl, and that's Triangle over there.\w8\1\s[10]Sup. \w8\0\s[0]\n\n[half]If you downloaded this template, you are presumably interested in making a ghost. \w5This template has been designed to help you do that. \w5Please make sure to carefully read the included readme file. \w8\1\n\n[half]\s[10]Each of the .dic files you'll be editing has a lot of commentary to guide you.\w8\0\s[0]\n\n[half]In the future, you will be replacing this dialogue with the dialogue for your own ghost. \w5This is a good place to introduce your characters.\w8\1\n\n[half]\s[10]You can have your characters banter with each other and explain how the ghost works and how to access menus.\x\c\0\s[0]More details about dialogue coding will be in the walkthrough page.\w8\1\c\s[10]Now we're going to ask the user the first question about themselves, namely what pronouns they want us to use.\w8\0\s[0]\n\n[half]This will let us construct grammatically correct sentences referring to the user later.\x\w8\1\c\s[10]How should we refer to you, user?\n\n[half]/
@@ -71,9 +75,9 @@ OnFirstBoot
  	}
 	else
  	{
-		//---- This is dialogue for when you load them after the first time. It's a failsafe, as the OnBoot dialogue will mostly pre-empt it, but you can't be too careful. You'll see this if you try to run OnFirstBoot using ![raise].
+		//---- This is dialogue for when the user uninstalls the ghost for whatever reason, then reinstalls them again. They will run this dialogue instead of their normal dialogue above. You can change this to reflect the fact the user's uninstalled your ghost once, or you can make it the same as the above, it's up to you. You'll see this if you try to run OnFirstBoot using ![raise] without the extra 0 as mentioned above.
  		{
- 		"\1\s[10]\0\s[0]This is the alternate OnFirstBoot dialogue.\e"
+ 		"\1\s[10]\0\s[0]This is the OnFirstBoot dialogue if we've been uninstalled and reinstalled.\e"
 		}
  	}
 }
@@ -94,6 +98,7 @@ Select.choicefirsthehim
 	himher = "him"
 	heshe = "he"
 	hisher = "his"
+	hesshes = "he's"
 	--
 	NameInput
 }
@@ -104,6 +109,7 @@ Select.choicefirstsheher
 	himher = "her"
 	heshe = "she"
 	hisher = "her"
+	hesshes = "she's"
 	--
 	NameInput
 }
@@ -113,6 +119,7 @@ Select.choicefirsttheythem
 	himher = "them"
 	heshe = "they"
 	hisher = "theirs"
+	hesshes = "they're"
 	--
 	NameInput
 }
@@ -141,51 +148,37 @@ NameInput
 	//***********************************************************************
 }
 
-//--GetTimeSlot
+//--timeslot
 
 //This is another unique function to tell what time of day it is. This is used for specialized dialogue related to the day. If you're uninterested, just ignore it. Either way, don't touch it. If you are going to use it though, make a note of the names used for each chunk of time, like earlymorning or lunch. Those are the names you'll be using later.
 
-GetTimeSlot
+timeslot
 {
 	if hour >= 5 && hour <= 8
-	{
-		"earlymorning"
-	}
+	{	"earlymorning"	}
 	elseif hour >= 9 && hour <= 11
-	{
-		"morning"
-	}
+	{	"morning"	}
 	elseif hour >= 12 && hour <= 14
-	{
-		"lunch"
-	}
+	{	"lunch"	}
 	elseif hour >= 15 && hour <= 17
-	{
-		"afternoon"
-	}
+	{	"afternoon"	}
 	elseif hour >= 18 && hour <= 20
-	{
-		"evening"
-	}
+	{	"evening"	}
 	elseif hour >= 21 && hour <= 24
-	{
-		"latenight"
-	}
+	{ "latenight"	}
 	else
-	{
-		"midnight"
-	}
+	{ "midnight" }
 }
 //*********************Advanced User Info*******************************
 //Do you see how this function is determining what time of day it is? It's using larger than/smaller than operators to isolate a range of time to define. For example, "hour >= 21 && hour <= 24" defines an hour that's greater than/equal to 21 AND less than/equal to 24. You can use this basic method to define other things too, such as the seasons. Keep this in mind! You never know when it might come in handy. I talk about operators more in the coding walkthrough page.
 //***********************************************************************
 
 
-//--GetDaySlot
+//--dayslot
 
 //Like the above, but to find out what day it is. You can primarily use this for specialized dialogue on certain days, like the user's birthday. Either way, don't touch it.
 
-GetDaySlot
+dayslot
 {
 	"%(month)month %(day)day"
 }
@@ -198,24 +191,34 @@ GetDaySlot
 
 //--OnBoot
 
-//As you can probably guess, OnBoot runs when you boot your ghost. It will run every time you boot your ghost, as a matter of fact.
+//As you can probably guess, OnBoot runs when you boot your ghost.
 
 //*********************Advanced User Info*******************************
 //If you're defining new values that depend on what you were doing with your ghost (like say, if you've hit them, if they're in a certain mode of some kind) and are generally temporary, remember to put them in OnBoot and set them back to zero or off. For example, I have a counter in the Hunter Smoker ghost that keeps track of if you've hit one of them so that when you go into their menus, it will know to give you the option to apologize or not. So I made sure to add a hunterpunchcount = 0 tag at the beginning of OnBoot, that way when you boot them up, they start fresh and don't display the option if you haven't done anything wrong yet. It's unlikely this'll come up very much if you're not interested in expanding your ghost, but I'm making a note of it here anyway for enterprising developers, huge success.
+
+//You can also stick any values you want to reset on boot into their own function, like "BootReset", then run BootReset instead during boot so it's a bit less unwieldy. It's up to you though!
 //***********************************************************************
 
 OnBoot
  {
 	lastTalk = "" //These values you may recognize from OnFirstBoot up there. Just pay them no mind.
+	passhour = 0
 	passmin = 0
 	passsec = 0
 	
  	"\0\s[0]\1\s[10]" //This sets them up in their neutral pose for now.
 	
-	//If you don't want to deal with individual day messages when you boot them, you can delete everything down to the end bracket for OnBoot (use Notepad++'s bracket tracking abilities to find where it is!) and instead add "%(normalboottalk)" to the end of the snip of dialogue up there that sets them up in their neutral poses. I'm pretty sure that should shortcut it properly.  Otherwise, read on ahead!
+	//If you don't want to deal with individual day messages when you boot them, you can delete everything down to the end bracket for OnBoot (use Notepad++'s bracket tracking abilities to find where it is!) and instead add "%(normalboottalk)" to the end of the snip of dialogue up there that sets them up in their neutral poses. I'm pretty sure that should shortcut it properly. Simplified, it'd look like...
+	//OnBoot
+	//{
+	//lastTalk = ""
+	//passhour = 0
+	//passmin = 0
+	//passsec = 0 
+	//"\0\s[0]\1\s[10]%(normalboottalk)"
+	//}
+	//If you want to check what day it is first though, read on ahead!
 	--
-	dayslot = GetDaySlot
-	timeslot = GetTimeSlot //You should remember these functions from above! They determine the date and time. Basically, it's using the functions GetDaySlot and GetTimeSlot to determine the two values for dayslot/timeslot that it will use in the following if statements. Those who read the coding page of the walkthrough and are interested in using your own functions, pay very close attention to this and study how it works!
 	
 	if dayslot == userbirthday //Now we're getting into the if statements. These check what the date is and, if it's a certain value, displays special dialogue. Here, the if statement is looking at the dayslot value (which we just defined) and evaluating it using the == operator to see if it equals another value, in this case the value "userbirthday". Basically this is checking to see if it's the user's birthday.
 	
@@ -236,7 +239,7 @@ OnBoot
 	elseif dayslot == "6month 6day" //Like above, this if statement is checking the date. It's looking for the sixth month and the sixth day.
 	
 	//*********************Advanced User Info*******************************
-	//elseif may be a unique function to AYA, I'm not sure, but anyway, the name itself is pretty self-explanatory. elseif statements always go after an if statement, and essentially are just what they sound like... if this thing happens, do this; else, if this thing happens, do this. elseifs are good if you have multiple things you want to check for in one function, like multiple days of the year as we're doing right now. elseifs go in descending order, so it'll always check if one is true, then if two is true, then if three is true, and so on.
+	//elseif statements always go after an if statement, and essentially are just what they sound like... if this thing happens, do this; else, if this thing happens, do this. elseifs are good if you have multiple things you want to check for in one function, like multiple days of the year as we're doing right now. elseifs go in descending order, so it'll always check if one is true, then if two is true, then if three is true, and so on.
 	//***********************************************************************
 	
 	{
@@ -341,14 +344,11 @@ normalboottalk
 //[insert your dialogue here]
 //}
 //if you don't want to deal with the time slots. Although do note, close dialogue must end with a \- instead of \e. \- will close the program.
-//Like above with OnBoot, just replace all the following pieces of dialogue with your own. It feels a bit redundant for me to point out every single piece and say "replace this", you know? If you've read the SakuraScript walkthrough page, you should know what a piece of dialogue looks like by now within code. Just go through OnClose and replace each bit with dialogue more suited for your ghost.
-//Note though that each bit here ends with \w8 instead of \e. That's because the actual end statement to close the ghost is at the very end, one of the very very rare times you won't have to end a line with \e. Instead, end it with \w8 so there's a little bit of a pause for the user before your ghost closes so they can read the last message.
+//Like above with OnBoot, just replace all the following pieces of dialogue with your own. Note though that each bit here ends with \w8 instead of \e. That's because the actual end statement to close the ghost is at the very end, one of the very very rare times you won't have to end a line with \e. Instead, end it with \w8 so there's a little bit of a pause for the user before your ghost closes so they can read the last message.
 
 OnClose
  {
- timeslot = GetTimeSlot //as you saw above, it's checking the time.
- --
-	if passmin >= 5	//This checks to see if you've had them open for at least five minutes.
+	if passmin >= 5 || passhour > 0	//This checks to see if you've had them open for at least five minutes.
 		{
 			if RAND(100) < 40 //see above about the random number generator
 			{
@@ -436,6 +436,16 @@ OnClose
  //-------------------------State Changing--------------------
  //From here on, most of the dialogue will have to do with changing shells, ghosts, or states in some way.
  
+ 
+ //--OnWindowStateMinimize
+
+//This will run when you minimize them. Replace with what you like.
+
+ OnWindowStateMinimize
+ {
+	"\0\s[0]This dialogue means we're being minimized.\w8\1\s[10]Gonna get tiny for a bit.\e"
+}
+
 
 //--OnWindowStateRestore
 
@@ -449,7 +459,7 @@ OnWindowStateRestore
 
 //--OnGhostChanging
 
-//This runs whenever you change or reload the ghost. You can change ghosts by going into the right click menu and going to Change Ghost, but this dialogue will also be called if you reload them using Utilities->Reload Ghost. Protip: If you are going to make a ghost, you will be reloading it A LOT.
+//This runs whenever you change or reload the ghost. You can change ghosts by going into the right click menu and going to Change Ghost, but this dialogue will also be called if you reload them using Utilities->Reload Ghost or the Developer's Console->Reload->Ghost. Protip: If you are going to make a ghost, you will be reloading it A LOT.
 //Note: If you reload your ghost using the developer console instead of Utilities->Reload Ghost, it won't do this dialogue, so don't freak out if it doesn't show up.
  
 OnGhostChanging
@@ -519,7 +529,7 @@ OnShellChanged
  {
  	if reference0 == "GT Default Shell" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
  	{
- 		nowshell = "default_shell" //This is the folder name for your shell. Not the same as the above! 
+ 		nowshell = "master" //This is the folder name for your shell. Not the same as the above! 
 		
  		"\0\s[0]This dialogue is for switching to our default shell.\w8\1\s[18]No really, will anyone actually put in the work to use these functions?\w8\0\s[9]\n\n[half]Shh.\e"
 		//Replace dialogue as required.
@@ -544,15 +554,14 @@ OnShellChanged
  	{
 	"\0\s[0]This dialogue is after we've changed our shell to %(reference[0]).\w8\1\s[18]How many shells you got?\e"
 	
-	//Note the %(reference[0]) here! This time that should store the name of whatever shell you're switching to. To be honest, I have not experimented with this too much because making shells is a pain in the tuckus, but I'm going to take cindysuke's coding on faith and assume reference[0] is correct instead of reference0. Replace this bit of dialogue as you need.
+	//Note the %(reference[0]) here! This time that should store the name of whatever shell you're switching to. Replace this bit of dialogue as you need.
 	}
  }
 
 
  //--OnDressupChanged
  
- //This runs whenever you fiddle with their clothing via the dress-up option, if you've set any for your ghost. Honestly setting up clothing is a nightmare and I hate doing it, and if your ghost is going to be moving around substantially or at all, clothing won't stay in the right place anyway. So unless you're like a real expert on surfaces.txt coding and rigging up clothing for different poses or you're intense or dedicated enough to set up clothing in the right place for every pose you do, I would not bother with clothing for your ghost.
- //HOWEVER I can't begrudge people who actually would put in that effort! And in that case, this function is for you. For now, I'll fill this in with some hypothetical items. Replace the dialogue below with whatever you need.
+ //This runs whenever you fiddle with their clothing via the dress-up option, if you've set any for your ghost. Make sure to read the clothing page on the walkthrough for details on how clothes work! This template won't have any because Girl and Triangle move around too much for it, but if your ghost is mostly stationary, clothes are an option. In that case, these functions are for you. For now, I'll fill this in with some hypothetical items. Replace the dialogue below with whatever you need.
 
 OnDressupChanged
 {
@@ -596,5 +605,3 @@ else //if reference0 isn't the main character, then it has to be the side charac
 		}
 	}
 }
-
-//If you are super dedicated to doing clothes, I'd recommend checking out some more in-depth FLELE tutorials for stuff about clothing until I muster up the energy to write a walkthrough page for it.

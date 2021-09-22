@@ -17,15 +17,15 @@ OnFileDrop2
 	_fileext = TOLOWER(_filepath[3])
 	case _fileext
 	{
-		when ".jpg", ".jpeg", ".bmp" //These are the formats your ghost will recognize as image files to set as the background. I tested this with .png files and it does not work, so don't bother adding that as an option.
+		when ".jpg", ".jpeg", ".bmp", ".png" //These are the formats your ghost will recognize as image files to set as the background.
 		{
 			Wallpaperfile = reference0
 			
 			"\0\s[0]The file you dropped is %(_filename)%(_fileext).\w8\1\s[10]How would you like us to set this picture as your wallpaper?\n\n[half]/
-			\q[Centered,SetWallpaper_0]\n/
-			\q[Tiled,SetWallpaper_1]\n/
-			\q[Stretched,SetWallpaper_2]\n\n[half]/
-			\q[No thanks,SetWallpaper_Cancel]\e"
+			\![*]\q[Centered,SetWallpaper_0]\n/
+			\![*]\q[Tiled,SetWallpaper_1]\n/
+			\![*]\q[Stretched,SetWallpaper_2]\n\n[half]/
+			\![*]\q[No thanks,SetWallpaper_Cancel]\e"
 		}
 		when ".mid", ".wav", ".mp3", ".wma", ".au" //Other file formats you might want to give your ghost a specific response to.
 		{
@@ -106,6 +106,22 @@ OnInstallComplete
 		"\s[0]We've installed a plug-in.\w8\1\s[10]It's called %(reference1).\e"
 		//Reference1 here would be the name of the plug-in. Replace as needed.
  	}
+	elseif reference0 == "calendar skin" //if the type of file is a calendar skin
+	{
+		"\s[0]We've installed a calendar skin.\w8\1\s[10]It's called %(reference1)."
+	}
+	elseif reference0 == "headline" //if the file/url you drop on them is counted as a headline. To be honest with you I don't know what determines whether a url is a headline or what.
+	{
+		"\0\s[0]We've set up a headline.\w8\1\s[10]It's called %(reference1).\e"
+	}
+	elseif reference0 == "rss" //this is more clearly for when you drag an rss feed onto your ghost. you can find rss feeds on sites by looking for the little rss icon, it kind of looks like a little satellite. you can google more info on rss feeds if you're curious!
+	{
+		"\0\s[0]We've set up a headline.\w8\1\s[10]It's called %(reference1).\e"
+	}
+	else //for any other file they'd install
+	{
+		"\s[0]We installed %(reference1)."
+	}
 }
 
 //---- OnInstallFailure -------------------------------------------------------
@@ -167,12 +183,12 @@ OnVanishCancel
 	"\0\s[0]The user has decided not to uninstall us after all.\e"
 }
 
-//--TalkVanishButtonHold
-//I believe this calls if you click and hold the button on either the menu option for uninstalling them, or possibly the option itself. Be careful if you're trying to test this! You'd hate to uninstall all your hard work, right? I'd probably just make sure the dialogue looks right via Script Input and leave it at that.
+//--OnVanishButtonHold
+//This should trigger if you double click the ghost's balloon in the middle of OnVanishSelected above. So it basically cancels their uninstallation. I'd be pretty careful about testing this, and I'd probably just put the line of dialogue into their script input and test it that way instead.
 
-TalkVanishButtonHold
+OnVanishButtonHold
 {
-	"\1\s[10]This dialogue displays when the user holds down the uninstall button.\e"
+	"\1\s[10]This dialogue displays when the user double clicks on the balloon when we're saying we're going to uninstall ourselves.\e"
 }
 
 
@@ -189,6 +205,7 @@ OnVanished
 
 //**** Mail Checking *******************************************************************
 //The next set of functions have to do with checking your email. This function is a slippery little thing - I've had people test it following my directions and have it work, but I've never actually gotten it to report back the right amount of emails myself. Very frustrating. But perhaps you'll have more luck with it, haha.
+//Girl and Triangle can't actually read your email, they can just tell you how many emails you have. I've seen ghosts that can read the HEADERS of email, but I still don't think ghosts can actually display the contents of an email. You should be using your actual email client for that. It's still kind of a neat feature though.
 
 
 //*********************Advanced User Info*******************************
@@ -253,7 +270,7 @@ OnBIFFFailure
  	}
 	elseif reference0 == "defect" //If the information put into the POP menu is wrong.
  	{
- 		"\0\s[0]The email account was not set up properly.\w8\1\s[10]It can be reset at the POP menu.\![open,configurationdialog]\e"
+ 		"\0\s[0]The email account was not set up properly.\w8\1\s[10]It can be reset at the POP menu.\w8\![open,configurationdialog]\e"
 		
 		//Note that this ends with \![open,configurationdialog]. This will open up the preferences menu I described above automatically. More on \! functions in the walkthrough. You can delete the \! tag here if you want to.
 	}
@@ -267,7 +284,7 @@ OnBIFFFailure
 
 
  //**** Network Update *****************************************************************
- //The following functions are for the Network Update of your ghost, where it will connect to your website, check for new files, and update itself. This is a handy feature, but tricky to set up. If you have no intention of using Network Update, you can disregard these, but it won't hurt to fill them out anyway just in case. More details about how to set up Network Update are in the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html).
+ //The following functions are for the Network Update of your ghost, where it will connect to your website, check for new files, and update itself. This is a handy feature, but tricky to set up. If you have no intention of using Network Update, you can disregard these, but it won't hurt to fill them out anyway just in case. More details about how to set up Network Update are in the walkthrough (http://www.ashido.com/ukagaka/).
  
  //Replace the dialogue in the next set of functions as appropriate. You can easily test these messages using the Developer panel. Go to Open at the bottom of it and choose one of the four Update Event options to simulate a Ghost's update process. I highly recommend doing this at LEAST once if you're going to use this feature to make sure it flows well.
 
@@ -287,7 +304,10 @@ OnUpdateBegin
  
 OnUpdateReady
  {
-	"\1\s[10]There are %(reference[0]) new files.\w8\e"
+ 
+	reference0++ //makes sure it starts at 1 instead of 0
+	
+    "\1\s[10]There are %(reference0) new files.\w8\e"
 	
 	//reference0 here storing the number of new files. You don't have to use it if you don't want to.
  }
@@ -332,7 +352,7 @@ OnUpdateFailure
 
  //---- OnUpdate.OnDownloadBegin ------------------------------------------------
  //This dialogue plays when they begin downloading a new file. WARNING: if you have big plans for your ghost and are going to make a lot of new image files for it (like... i do, cough) at some point, you're going to want to make these messages very brief, if you even have them at all. The reason is because the user will see these messages for EVERY individual file that they have to download, and if you have, say, 50 pna files in the queue, they will see this dialogue 50 times. Not only that, but displaying the dialogue takes some time, so it also extends the download process.
- //If you aren't planning on adding a ton of files at any point, or are only intending to update the .dic files which will be at most a handful of files, then you can go ahead and put a short message in here. But if your ghost is going to grow in leaps and bounds as you work on it, try and keep these messages as brief as possible to make the process that much faster for your user.
+ //If you aren't planning on adding a ton of files at any point, or are only intending to update the .dic files which will be at most a handful of files, then you can go ahead and put a short message in here. But if your ghost is going to grow in leaps and bounds as you work on it, try and keep these messages as brief as possible (or again, just make it "" to have there be no message at all) to make the process that much faster for your user.
  
 OnUpdate.OnDownloadBegin
  {
@@ -349,7 +369,7 @@ OnUpdate.OnDownloadBegin
  }
 
  //---- OnUpdate.OnMD5CompareBegin ---------------------------------------------------
- //This checks the hash value of the files in the directory and the files listed in updates.dau, I believe. It will do this for every file the user downloads, so I again remind you of my warning above! For every file they download, they will have to go through three sets of unique dialogue, and it can get old fast. Not to mention it slows things down a lot. Again, I would recommend keeping this very brief, if not just replacing it with "..." instead.
+ //This checks the hash value of the files in the directory and the files listed in updates.dau, I believe. It will do this for every file the user downloads, so I again remind you of my warning above! For every file they download, they will have to go through three sets of unique dialogue, and it can get old fast. Not to mention it slows things down a lot. Again, I would recommend keeping this very brief, if not just replacing it with "..." or "" instead.
  
 OnUpdate.OnMD5CompareBegin
  {
@@ -468,7 +488,7 @@ OnHeadlinesenseFailure
 
 //**** Ghost Creation and Updating ******************************************************
 //These next few are related to creating updates2.dau and .nar files for your ghosts. You'll want to at least make a .nar to distribute your ghost, and if you're going to be using Network Update, you'll also want to make updates2.dau as well. It's unlikely that anyone other than you will see these messages, but you should be thorough and replace them anyway.
-//Primarily, you will see these messages when you're creating your updates file or updating your ghost.nar file. More on this on the walkthrough page. However, you could potentially drag and drop another ghost's folder onto them, and they'll also create a nar for that as well, though I've never done that myself. I really wouldn't mess around too much with this. Just follow the directions on the walkthrough page and fill out the dialogue here as required.
+//Primarily, you will see these messages when you're creating your updates file or updating your ghost.nar file. More on this on the walkthrough page. However, you can drag and drop another ghost's folder onto them and they'll also create a nar for that as well, if for some reason you want to do that.
 
 
  //---- OnUpdatedataCreating -----------------------------------------------------------
@@ -580,7 +600,7 @@ OnDisplayChange
 
 
  //---- OnScreenSaverStart -------------------------------------------------------
- //This happens if your ghost is running when your screensaver starts up. This and OnScreenSaverEnd are optional, you can delete them both if you like. In fact, you can just delete the rest of the functions from this point on if you're tired and lazy, but we're close to the end, so don't give up yet!
+ //This happens if your ghost is running when your screensaver starts up. I've never got this to trigger but I love this idea, and I feel like there's a way to do it I haven't figured out yet. So you can skip these for now if you want, but if I do ever get it working, I'll come back and make a note of it.
  
 OnScreenSaverStart
  {
@@ -644,7 +664,7 @@ OnBatteryCritical
  
 //--OnBatteryNotify--------------------------------------------------------------------
 //This I believe checks to see if your laptop is plugged in or not. Originally this bit of code was commented out, so I suspect it may not work. It may need a plug-in of some sort. Either way, you can delete it or fill it out as you like.
-//Actually investigating this, leaving this in makes it so the ghost updates you about whether or not your computer is plugged-in constantly, which makes no sense for desktops. No doubt why it was commented out. Just leave it be.
+//Actually investigating this, leaving this in makes it so the ghost updates you about whether or not your computer is plugged-in constantly, which makes no sense for desktops. No doubt why it was commented out. You can delete it or just leave it be.
 
 /*
 OnBatteryNotify
@@ -661,17 +681,8 @@ OnBatteryNotify
 */
 
 
- //---- OnSysResourceLow -----------------------------------------------------------
- //A notification for if your system resources are low. I've never seen this happen and my system resources can run pretty low sometimes (woo windows xp woooo), so I suspect this one also may not work without the right plug-in, but I could be wrong. You might as well fill it out.
- 
-OnSysResourceLow
- {
-	"\0\s[0]The system resources are low.\e"
- }
-
-
  //--OnShellScaling
- //This is a function however that you may actually use! Or at least, I often use it when desktop space is at a premium (which it always is on my computer). If you right click the ghost, you can go to Shell Scaling, which lists a number of different percentages. Those are the percentages your ghost can be scaled in size up or down. You can try them out yourself to get an idea of what I mean. I often scale mine down to get them out of the way sometimes. This adds dialogue whenever you change their scale. You don't have to do this if you don't want to, in which case they will just stay silent when you size them up or down. If that's what you want, just delete the whole thing.
+ //This is a function however that you may actually use! Or at least, I often use it when desktop space is at a premium (which it always is on my computer). If you right click the ghost, you can go to Shell Scaling, which lists a number of different percentages. Those are the percentages your ghost can be scaled in size up or down. You can try them out yourself to get an idea of what I mean. I often scale mine down to get them out of the way sometimes. This adds dialogue whenever you change their scale. You don't have to do this if you don't want to, in which case they will just stay silent when you size them up or down. If that's what you want, just delete the whole thing or leave "" instead of any dialogue.
  
 OnShellScaling
 {

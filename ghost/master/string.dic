@@ -1,4 +1,4 @@
-///////// 빒?긕?긚긣긡깛긵깒?긣
+﻿///////// 빒?긕?긚긣긡깛긵깒?긣
 ///////// 빒럻쀱깏??긚렖룕
 ///////// written by umeici.
 
@@ -9,8 +9,8 @@
 
 //Anyway, string.dic has to do with the right-click SSP menu, specifically the captions for the menu options. This is VERY IMPORTANT if you're going to set up the Network Update for your ghost! Otherwise this is just an easy place to customize your ghost's menu to your tastes. 
 
-//If you're going to set up Network Update, make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details! I won't get into the whole thing here, but this page has a very important value you will need to change for Network Update to work!
-//Note also here that lines do not end with \e here. This is because the ghost isn't speaking these lines, they're just being used in the code.
+//If you're going to set up Network Update, make sure to read the walkthrough (http://www.ashido.com/ukagaka/) for more details! I won't get into the whole thing here, but this page has a very important value you will need to change for Network Update to work!
+//Note also here that lines do not end with \e here. This is because the ghost isn't speaking these lines, they're just being used in the right-click menu.
 
 
 //---- Username -----------------------------------------------------------------------
@@ -47,13 +47,13 @@ On_sakura.recommendsites
 	"Ghost Template Walkthrough"
 	--
 	//This first line is the name that will display in the menu for your site. In this case, it would display "Ghost Template Walkthrough".
-	"%ASC(1)http://www.ashido.com/ukagaka/walkthrough.html%ASC(2)"
+	"%ASC(1)http://www.ashido.com/ukagaka/%ASC(2)"
 	--
 	//And this is the site that it would link to. Note that a website address begins with %ASC(1) and ends with %ASC(2). Don't forget these!
 	
-	"Zarla's LJ"
+	"Zarla's Twitter"
 	--
-	"%ASC(1)http://zarla.livejournal.com/%ASC(2)"
+	"%ASC(1)https://twitter.com/Zarla_S/%ASC(2)"
 	--
 	
 	"Zarla's Tumblr"
@@ -84,6 +84,10 @@ On_sakura.recommendsites
 	"Disc-2 (J)"
 	--
 	"%ASC(1)http://disc2.s56.xrea.com/%ASC(2)"
+	
+	"UKADOC Project Wiki (J)"
+	--
+	"%ASC(1)http://ssp.shillest.net/ukadoc/manual/index.html/%ASC(2)"
 	//You don't have to space these out like this between sites, but I thought it'd make it a bit easier to read.
  }
  

@@ -30,7 +30,7 @@ craftmanurl,http://personalcatt.tumblr.com
 //This is coding stuff, don't touch it.
 
 sstp.allowunspecifiedsend,0
-shiori,aya5.dll
+shiori,yaya.dll
 
 
 //This next bit defines what icon your ghost will use in your taskbar. Replace "gt_template.ico" with the icon file you're going to be using.
