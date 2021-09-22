@@ -12,8 +12,6 @@
 
 OnMouseMove
  {
-  	if nowmode != "QUIZ"
- 	{
 		//---- reference3 determines the character in question
 		if reference3 == 0 //if the character is 0, aka the main character
 		{
@@ -25,7 +23,6 @@ OnMouseMove
 			//---- this will run the mouse functions for the side character.
 			MouseMoveKero
 		}
-	}
  }
  
  //*********************Advanced User Info*******************************
@@ -114,14 +111,16 @@ MouseMoveKero
 OnMouseDoubleClick
  {
 	//---- like with the OnMouseMove function above, this determines who the user is clicking on.
-	
- 	if reference3 == 0 //if the character is 0, aka your main character
+	if reference5 == 0 //checks which button is being used for the click
 	{
+	 	if reference3 == 0 //if the character is 0, aka your main character
+		{
 		MouseDoubleClickSakura
- 	}
-	else
- 	{
+		}
+		else
+		{
  		MouseDoubleClickKero
+		}
 	}
  }
 

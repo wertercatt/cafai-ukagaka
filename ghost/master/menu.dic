@@ -4,7 +4,7 @@
 
 //The complexity of this file depends on how customized you want your menus. If you just want to leave them as they are, then all you'll have to do is replace dialogue appropriately. You can always add stuff to their menus later if you get the urge. Otherwise, if you have plans in mind, you'll need to study what's going on in here carefully and pay attention to how things are set up! You can do a lot of unique stuff in this file if you're creative.
 
-//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
+//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/) for more details about how to properly format ghost dialogue!
 //I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C (or Java I guess) to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
 //It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
 
@@ -12,6 +12,7 @@
 //--OpenSakuraMenu
 //This is a bit of intro dialogue before the main character opens their menu. You can see below that there are three pieces of separate dialogue listed before it goes to MenuRun. The character will randomly choose one of those pieces of dialogue before opening the rest of their menu. You can customize this with individual greetings for the character, such as "Yes, %(username)?" or "Need something, %(username)?" or things like that. Note that none of the lines end with \e!
 //The \b2 tag tells the ghost to use their big balloon for this dialogue. If your menu has a lot of stuff, this'll probably look better than the small one.
+//If you don't want multiple responses before opening the menu, you can delete the dialogue and just leave MenuRun.
 
 OpenSakuraMenu
 {
@@ -29,8 +30,6 @@ MenuRun
  {	
  	wd = GetWeekDay
  	ap = GetAP
- 	nowmin = Getnowmin
- 	nowhour = Getnowhour
 	//These four statements basically get the day of the week, whether it's AM or PM, the hour, and the time. It's putting together the information to display the time at the bottom of the balloon. Pay it no mind.
 	--
 	"\n\n\_q\b2" //The \n\n means two new lines as detailed in the walkthrough, and \_q means quick session, meaning all the text from this point on will display instantly instead of a few letters at a time like normal ghost dialogue.
@@ -47,8 +46,9 @@ MenuRun
 	  //***********************************************************************
 	}
 	--
- 	"\![*]\q[Say something,altalk]\n/
-	\![*]\q[Show me a card,cardlookup]\n"
+ 	"\![*]\q[Say something,OnAiTalk]\n"
+	--
+	"\![*]\q[Show me a card,cardlookup]\n"
 	
 	//This option will force the ghost to say something from aitalk if the user clicks it. Just replace "Say something" and "Say something 2" with whatever captions you think would be appropriate for such an option. IF you don't want two options for captions, delete one of the lines.
 	//Advanced users, you can add multiple captions for any option you add to a menu you make just like this, as long as you separate it from the other options into its own section with two dashes above and below.
@@ -58,13 +58,6 @@ MenuRun
  	\![*]\q[Nevermind,CANCEL]\n\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)\e"
 	
 	//These three lead to the Config Menu, the Function menu, and Cancel. You can leave these alone if you like. All the envelopes at the end (see word.dic) basically display the year, month, day, weekday, and time.
-}
-
-//Leave this next bit alone.
-//Advanced users, note that this is formatted as Select.linkedfunction? Remember how it went \q[Displayed Name,linkedfunction] above? When a user clicks an option that doesn't begin with On, they'll be linked to Select.linkedfunction. Pay close attention as we go through and you'll see this in action.
-Select.altalk
-{
-	AiTalk
 }
 
 //Leave this alone
@@ -96,42 +89,26 @@ GetWeekDay
 GetAP
 {
  	if hour >= 0 && hour <= 11
- 		{
- 			"AM"
- 		}
+ 		{"AM"}
  	else
- 		{
- 			"PM"
- 		}
+ 		{"PM"}
 }
 
-//This is figuring out the minute. Leave it alone.
-Getnowmin
+nowhour
 {
-	if minute >= 0 && minute <=9
-		{
-			"0%(minute)"
-		}
-	else
-		{
-			"%(minute)"
-		}
+	if hour12 == 0; "1"
+	else; "%(hour12)"
 }
 
-//This is figuring out the hour. Leave it alone.
-Getnowhour
+nowmin
 {
-	if hour12 >= 0 && hour12 <=9
-		{
-			"0%(hour12)"
-		}
-	else
-		{
-			"%(hour12)"
-		}
+	if minute >= 0 && minute <=9; "0%(minute)"
+	else; "%(minute)"
 }
+
 
 //If someone selects an option linked to BACKTOMENU, it will go back to MenuRun.
+//Advanced users, note that this is formatted as Select.linkedfunction? Remember how it went \q[Displayed Name,linkedfunction] above? When a user clicks an option that doesn't begin with On, they'll be linked to Select.linkedfunction. Pay close attention as we go through and you'll see this in action.
 
 Select.BACKTOMENU
 	{
@@ -152,11 +129,11 @@ Select.cardlookup
 //*********************Advanced User Info*******************************
 //Some of you may be wondering why some of these Select.options lead to another function. Why not just put the config menu coding under Select.configmenu, instead of linking to TalkConfig?
 //Basically any function that's preceded with Select. is limited in its complexity and can only be called within its own .dic file in my experience. Why should you care, you ask? Well, if you're going to link to this function any other way, such as linking it in other .dic files or as a page in a menu, it needs to be a stand-alone function so it can be properly called. I'm pretty sure.
-//The basic jist is this; if you're going to reuse whatever it is the option leads to, you should make it its own function. Otherwise, you can leave it in Select.option. As a rule of thumb I'd probably put any complicated stuff in its own function, then use the Select.option to call the full function as you can see above. Simple dialogue responses to a choice can stay as a Select.option though. Study what stays as a Select.option and what links to another Function as we go through the file.
+//The basic jist is this; if you're going to reuse whatever it is the option leads to, you should make it its own function. Otherwise, you can leave it in Select.option. As a rule of thumb I'd probably put any complicated stuff in its own function, then use the Select.option to call the full function as you can see above. Simple dialogue responses to a choice can stay as a Select.option though (Like "Do you like going to raves and partying? Yes/No"). Study what stays as a Select.option and what links to another Function as we go through the file.
 //***********************************************************************
 
 //--TalkConfig
-//This menu allows the user to change their name and other information, as well as put in their birthday and change how often the ghost speaks. You shouldn't need to touch any of what's under TalkConfig, although you can adjust dialogue in the following functions related to it.
+//This menu allows the user to change their name and other information, as well as put in their birthday and change how often the ghost speaks. You can restructure how this looks if you want, but it's perfectly functional as is. You can of course change the dialogue though if you like.
 
 TalkConfig
 {
@@ -195,6 +172,7 @@ Select.choicemasc
 	himher = "him"
 	heshe = "he"
 	hisher = "his"
+	hesshes = "he's"
 	--
 	"\0\s[0]The pronouns are now he him and his.\e"
 	//Leave the part above the double dashes alone. You can replace the snip of dialogue however with whatever you like.
@@ -206,6 +184,7 @@ Select.choicefem
 	himher = "her"
 	heshe = "she"
 	hisher = "her"
+	hesshes = "she's"
 	--
 	"\0\s[0]The pronouns are now she her and her.\e"
 	//as above, you can also replace this dialogue.
@@ -217,10 +196,17 @@ Select.choiceneither
 	himher = "them"
 	heshe = "they"
 	hisher = "their"
+	hesshes = "they're"
 	--
 	"\0\s[0]The pronouns are now they them and their.\e"
 	//and this one.
 }
+
+//Here are some examples of these envelopes in use.
+//"%(heshe) left that there."
+//"%(hisher) work is really cool."
+//"I'll ask %(himher) later."
+//"%(hesshes) really good at it."
 
 
 //These two options toggle whether or not you can delete your ghost. Leave them alone.
@@ -241,178 +227,100 @@ Select.deleteoff
 //This next set of functions handles inputting the user's birthday.
 
 Select.TEACHBDAY
-	{
-		dayslot = GetDaySlot //This is setting up in case today is the user's birthday.
+	{	
+		"\0\s[0]What month were you born? \w8Name or number is fine.\![open,inputbox,OnUserBornMonth,-1]\e"
 		
-		"\0\s[0]What month were you born? \w8Write the number.\![open,inputbox,OnUserBornMonth,-1]\e"
-		
-		//You can replace the dialogue up to the \![open,inputbox,OnUserBornMonth,-1] tag, leave that alone. You'll need the input box to get the information. Note that the month HAS to be put in in number format as well, so you might want to have your ghost mention that.
+		//You can replace the dialogue up to the \![open,inputbox,OnUserBornMonth,-1] tag, leave that alone. You'll need the input box to get the information.
 		
 		//*********************Advanced User Info*******************************
 		//I also touched on this in bootend.dic and explained it in the walkthrough page on coding, but I'll also go into it here. I'm going to break down the tag there at the end of the sentence so you know what it's doing. Basically, \! means a function is going to happen, open tells it to open something, inputbox tells it to open an input box, and OnUserBornMonth is the function the input box will be linked to, which is just below here. -1 means the input box should not time out. If you want to add input boxes to some new function for whatever reason, you should follow this basic format.
-		//On a related note, you can raise any function at the end of any piece of dialogue by using this format - ![raise,InsertFunctionName]. This can be handy for testing things if the function is hard to get to run otherwise.
+		//On a related note, you can raise any function at the end of any piece of dialogue by using this format - \![raise,InsertFunctionName]. This can be handy for testing things if the function is hard to get to run otherwise.
 		//***********************************************************************
 	}
 
 //--OnUserBornMonth
-//This takes the value that the user put into the input box above and evaluates it.
+//This takes the value that the user put into the input box above and evaluates it. Most of this you won't have to touch, but I'll explain what it's doing anyway. I'll point out where you can change the dialogue.
 
 OnUserBornMonth
-	{
-		_tempmonth = reference0 //this stores what the user input in as a variable called _tempmonth
-		if _tempmonth >= 1 && _tempmonth <= 12 //if the month is a valid month
-			{
-			bornmonth = _tempmonth
-			bornmonthprint = Printmonth
-			
-			"\0\s[0]So you were born in %(bornmonthprint).\n\w8What day was it?\![open,inputbox,OnUserBornDay,-1]\e"
-			
-			//Here you can see the use of a bornmonthprint envelope to show the user what month they put in. Notice that it opens an inputbox at the end the same way the one above did. You can replace the dialogue up to the input box just as with above.
-			}
-		else //if the month isn't a valid month, like 32 or something.
-			{
-			"\0\s[0]That's not a valid month. Try again.\![open,inputbox,OnUserBornMonth,-1]\e"
-			
-			//You can replace this dialogue as well up to the \! tag, as mentioned. You need to leave the tag for the input box so they can put in a correct month.
-			}
-	}
-
-//This puts the name to the number of the month. No need to mess with these.
-Printmonth
 {
-	if bornmonth == 1
+	_tempmonth = TOSTR(reference0) //this stores what the user put in as a variable called _tempmonth
+	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
+	
+	//this is attaching the right value to the input from the user
+	if _tempmonth == "january" || _tempmonth == "1" {bornmonth = 1; bornmonthprint = "January"}
+	elseif _tempmonth == "february" || _tempmonth == "2" {bornmonth = 2; bornmonthprint = "February"}
+	elseif _tempmonth == "march" || _tempmonth == "3" {bornmonth = 3; bornmonthprint = "March"}
+	elseif _tempmonth == "april" || _tempmonth == "4" {bornmonth = 4; bornmonthprint = "April"}
+	elseif _tempmonth == "may" || _tempmonth == "5" {bornmonth = 5; bornmonthprint = "May"}
+	elseif _tempmonth == "june" || _tempmonth == "6" {bornmonth = 6; bornmonthprint = "June"}
+	elseif _tempmonth == "july" || _tempmonth == "7" {bornmonth = 7; bornmonthprint = "July"}
+	elseif _tempmonth == "august" || _tempmonth == "8" {bornmonth = 8; bornmonthprint = "August"}
+	elseif _tempmonth == "september" || _tempmonth == "9" {bornmonth = 9; bornmonthprint = "September"}
+	elseif _tempmonth == "october" || _tempmonth == "10" {bornmonth = 10; bornmonthprint = "October"}
+	elseif _tempmonth == "november" || _tempmonth == "11" {bornmonth = 11; bornmonthprint = "November"}
+	elseif _tempmonth == "december" || _tempmonth == "12" {bornmonth = 12; bornmonthprint = "December"}
+	
+	else //if the month isn't a valid month, like 32 or something.
 	{
-		"January"
+			"\0\s[0]That's not a valid month. Try again."
+			--
+			"\![open,inputbox,OnUserBornMonth,-1]\![set,balloontimeout,-1]\e"
+			
+			//You can replace this dialogue in the first line. You need to leave the tag for the input box so they can put in a correct month. That last tag there for ![set,balloontimeout,-1] makes it so the input box won't time out if the user takes too long.
 	}
-	elseif bornmonth == 2
-	{
-		"February"
-	}
-	elseif bornmonth == 3
-	{
-		"March"
-	}
-	elseif bornmonth == 4
-	{
-		"April"
-	}
-	elseif bornmonth == 5
-	{
-		"May"
-	}
-	elseif bornmonth == 6
-	{
-		"June"
-	}
-	elseif bornmonth == 7
-	{
-		"July"
-	}
-	elseif bornmonth == 8
-	{
-		"August"
-	}
-	elseif bornmonth == 9
-	{
-		"September"
-	}
-	elseif bornmonth == 10
-	{
-		"October"
-	}
-	elseif bornmonth == 11
-	{
-		"November"
-	}
-	else
-	{
-		"December"
-	}
+	--
+	//If it's a valid month
+	
+	"\0\s[0]So you were born in %(bornmonthprint).\n\w8What day was it?"
+	--
+	"\![open,inputbox,OnUserBornDay,-1]\![set,balloontimeout,-1]\e"
+	
+	//Here you can see the use of a bornmonthprint envelope to show the user what month they put in. Notice that it opens an inputbox at the end the same way the one above did. You can replace the dialogue in the first line just as with above.
 }
 
-//This adds an appropriate suffix to the number for the day. No need to mess with this either.
+//This adds an appropriate suffix to the number for the day. No need to mess with this.
 
 Printday
 {
 	if bornday == 1 || bornday == 21 || bornday == 31
-	{
-	"%(bornday)st"
-	}
+	{	"%(bornday)st"	}
 	elseif bornday == 2 || bornday == 22
-	{
-	"%(bornday)nd"
-	}
+	{	"%(bornday)nd"	}
 	elseif bornday == 3 || bornday == 23
-	{
-	"%(bornday)rd"
-	}
+	{	"%(bornday)rd"	}
 	else
-	{
-	"%(bornday)th"
-	}
+	{	"%(bornday)th"	}
 }	
 
 //--OnUserBornDay
-//This is much like the above function OnUserBornMonth. It'll take the value the user put in for the day and analyze it.
+//This is much like the above function OnUserBornMonth. It'll take the value the user put in for the day and analyze it. Again, there'll be comments explaining how it works, but all you really need to do is change the dialogue appropriately. I'll point out where you can add new dates to check for.
 
 OnUserBornDay
 {
-	tempday = reference0 //storing the input in tempday
+	_tempday = reference0 //storing the input in _tempday
+	_tempday = TOLOWER(_tempday) //changes it to lowercase
+	_tempday = REPLACE(_tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
+	_tempday = REPLACE(_tempday,"nd","")
+	_tempday = REPLACE(_tempday,"rd","")
+	_tempday = REPLACE(_tempday,"th","")
+	_tempday = TOINT(_tempday) //Converts it to an integer
 	
-	if bornmonth == 1 || bornmonth == 3 || bornmonth == 5 || bornmonth == 7 || bornmonth == 8 || bornmonth == 10 || bornmonth == 12 //This is checking to see if it's one of the months with 31 days.
-		{
-			if tempday >= 1 && tempday <= 31 //if it falls in the right range
-				{
-					bornday = tempday
-					borndayprint = Printday
-					userbirthday = "%(bornmonth)month %(bornday)day"
-					birthdayprint = "%(bornmonthprint) %(borndayprint)"
-					
-					"%(birthchecked)"
-					//Mostly defining envelopes and values in here. No need to touch any of this! Eagle-eyed readers will notice the new envelope birthchecked on its own line like a tiny king. We'll get to that momentarily, but pay it no mind for now.
-				}
-			else //if the day isn't valid, like the 10046th or something.
-				{
-					"\0\s[0]That's not a valid day. Try again.\![open,inputbox,OnUserBornDay,-1]\e"
-					
-					//Similar as you can see to the month check above. You can replace the dialogue here up to the tag as you just did, but make sure to leave the input box tag so the user can put in a correct day.
-				}
-		}
-	elseif bornmonth == 2 //if the month is february
-		{
-			if tempday >= 1 && tempday <= 29 //and the day falls in the right range
-				{
-					bornday = tempday
-					borndayprint = Printday
-					userbirthday = "%(bornmonth)month %(bornday)day"
-					birthdayprint = "%(bornmonthprint) %(borndayprint)"
-					
-					"%(birthchecked)"
-					//just as with the above.
-				}
-			else
-				{
-					"\0\s[0]That's not a valid day. Try again.\![open,inputbox,OnUserBornDay,-1]\e"
-					
-					//And the same as above again! You see the pattern here?
-				}
-		}
-	else //if it's any other month than those
-		{
-			if tempday >= 1 && tempday <= 30 //if the day falls between these values
-				{
-					bornday = tempday
-					borndayprint = Printday
-					userbirthday = "%(bornmonth)month %(bornday)day"
-					birthdayprint = "%(bornmonthprint) %(borndayprint)"
-					
-					"%(birthchecked)"
-				}
-			else
-				{
-					"\0\s[0]That's not a valid day. Try again.\![open,inputbox,OnUserBornDay,-1]\e"
-				}
-		}		
+	if ((bornmonth == 1 || bornmonth == 3 || bornmonth == 5 || bornmonth == 7 || bornmonth == 8 || bornmonth == 10 || bornmonth == 12) && _tempday >= 1 && _tempday <= 31) || (bornmonth == 2 && _tempday >= 1 && _tempday <= 29) || ((bornmonth == 4 || bornmonth == 6 || bornmonth == 9 || bornmonth == 11) && _tempday >= 1 && _tempday <= 30) //This ugly function checks if the day falls into a valid range. If it does, we set some variables and continue down.
+	{
+		bornday = _tempday
+		borndayprint = Printday
+		userbirthday = "%(bornmonth)month %(bornday)day"
+		birthdayprint = "%(bornmonthprint) %(borndayprint)"
+		
+		"%(birthchecked)"
+		//Mostly defining envelopes and values in here. No need to touch any of this! Eagle-eyed readers will notice the new envelope birthchecked on its own line like a tiny king. We'll get to that momentarily, but pay it no mind for now.
+	}
+	else //If the day isn't valid, like the 10046th or something, this will open the input box again and have a \e so the dialogue below doesn't play. You can replace the dialogue in the first line here.
+	{
+		"\0\s[0]That's not a valid day. Try again."
+		--
+		"\![open,inputbox,OnUserBornDay,-1]\e"
+	}	
 }
 
 //--birthchecked
@@ -453,7 +361,7 @@ Select.talkinter
 		\![*]\q[Don't change,TalksTill]\e"
 	}
 
-//If the user doesn't want to change the rate. You can change all of the dialogue in any of these options if you want to reflect the choice the user made. You TECHNICALLY could also change the value in talktime to reflect some other way of measuring time but I would NOT recommend it, it'd just be confusing I'm sure.
+//If the user doesn't want to change the rate. You can change all of the dialogue in any of these options if you want to reflect the choice the user made. You TECHNICALLY could also change the value in talktime to reflect some other way of measuring time but I wouldn't recommend it, it'd just be confusing I'm sure.
 Select.TalksTill
 	{
 		"\0\s[0]No change to the talk rate.\e"
@@ -463,7 +371,7 @@ Select.TalksTill
 Select.TALKMAX
 	{
  		talktime = "30 seconds" //this sets up the envelope properly
-		aitalkinterval = 45 //this changes the actual rate
+		aitalkinterval = 30 //this changes the actual rate
 		
  		"\0\s[0]We will speak every 30 seconds.\e"
 	}
@@ -472,7 +380,7 @@ Select.TALKMAX
 Select.TALKHIGH
 	{
  		talktime = "minute"
-		aitalkinterval = 90
+		aitalkinterval = 60
 		
  		"\0\s[0]We will speak every minute.\e"
 	}
@@ -481,7 +389,7 @@ Select.TALKHIGH
 Select.TALKNORMAL
 	{
  		talktime = "3 minutes"
-		aitalkinterval = 270
+		aitalkinterval = 180
 		
  		"\0\s[0]We will speak every three minutes.\e"
 	}
@@ -490,7 +398,7 @@ Select.TALKNORMAL
 Select.TALKPOOR
 	{
  		talktime = "5 minutes"
-		aitalkinterval = 400
+		aitalkinterval = 300
 		
  		"\1\s[10]We will speak every five minutes.\e"
 	}
@@ -543,7 +451,7 @@ Select.dosomething
 //When the user clicks Open Calender. This will open the calender function of SSP, an in-built feature that you don't have to worry about in the least.
 Select.CALENDAR
 {
-	"\0\s[0]Opening the calender.\![open,calendar]\e"
+	"\0\s[0]Opening the calender.\w8\![open,calendar]\e"
 	
 	//You can replace the dialogue here up to the \!.
 	//Advanced users, can you break it down yet? It's basically just using \! to open calender.exe or dll or whatever SSP uses to make it happen.
@@ -552,7 +460,7 @@ Select.CALENDAR
 //When the user chooses SSP preferences. This will open the same window that shows up if you right click your ghost and go to Utilities - Preferences.
 Select.sspconfig
 {
-	"\0\s[0]Opening the SSP config menu.\![open,configurationdialog]\e"
+	"\0\s[0]Opening the SSP config menu.\w8\![open,configurationdialog]\e"
 	
 	//Again, you can replace up to the \! tag.
 }
@@ -560,7 +468,7 @@ Select.sspconfig
 //If the user chooses to empty the recycle bin.
 Select.ChoiceGarbagecan
 {
-	_gomicheck = FUNCTIONEX("gomi.dll", "-n")	//Don't touch this line. for those curious, it's referencing a SAORI, which are optional user-made plug-in dlls you can download to enable different functions on your ghost. gomi.dll is one included with this template. All SAORI are in Japanese (maybe Korean or Chinese as well idk) and many have disappeared by now, so don't concern yourself very much with SAORI. It's just some ghost trivia, basically.
+	_gomicheck = FUNCTIONEX("gomi.dll", "-n")	//Don't touch this line. for those curious, it's referencing a SAORI, which are optional user-made plug-in dlls you can download to enable different functions on your ghost. gomi.dll is one included with this template. All SAORI are in Japanese (maybe Korean or Chinese as well idk) and many have disappeared by now, so don't concern yourself very much with SAORI. They're for skilled developers, mostly.
 	
 	if _gomicheck == 0 //If the recycle bin is empty.
 	{
@@ -609,12 +517,6 @@ Select.MailCheck
 		"\![biff]\e"
 	}
 
-
-//This is when the user ends their headline session. Headlines are detailed more in etc.dic. Replace dialogue with what strikes you.
-Select.HEADLINECANCEL
- 	{
- 		"\0\s[0]Finished with headlines.\e"
-	}
 
 	
 //---- OnChoiceTimeout ---------------------------------------------------------
@@ -673,8 +575,8 @@ Select.keroupdatecheck
 }
 
 //--Test Variable --------------------------------------------------------
-//I briefly mentioned the test variable in bootend.dic and possibly in etc.dic as well, I'm not sure. What exactly is the test variable? Basically, it's a place you can plug in anything you want to test out. What this means is that you can write some ghost dialogue, then copy and paste it into the test variable dialogue snippet down there, reload your ghost, then choose "test variable" from your second character's menu. Check your dialogue to see if it looks right and if it does, put it back in aitalk, or edit it until it looks right and put it back. While you can use Script Input to test most of your ghost's dialogue, there are some lines it just can't do, and it can't help you test choices. But the test variable can! The dialogue/choices from OnFirstBoot are a prime candidate for testing with this variable.
-//You can also use this to test functions as I mentioned above by adding \![raise,function] at the end of it, although you can do this with Script Input as well. Advanced Users, the test variable is also great for testing out any new stuff you may add to your ghost, like mode settings, item values, functions, raising or lowering numbers, what have you.
+//I briefly mentioned the test variable in bootend.dic and possibly in etc.dic as well, I'm not sure. What exactly is the test variable? Basically, it's a place you can plug in anything you want to test out. While you can use Script Input to test most of your ghost's dialogue, there are some lines it just can't do, and it can't help you test choices. But the test variable can!
+//You can also use this to test functions as I mentioned above by adding \![raise,function] at the end of it, although you can do this with Script Input as well. Advanced Users, the test variable is also great for testing out any new stuff you may add to your ghost, like mode settings, item values, functions, raising or lowering numbers, what have you, particularly if you have a bunch you want to change all at once.
 
 //It is ALWAYS A GOOD IDEA to test your dialogue! If you won't check it with the test variable, at least test it with Script Input! It'll save you so much trouble!
 
