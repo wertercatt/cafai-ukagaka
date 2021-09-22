@@ -55,13 +55,13 @@ RandomTalk : nonoverlap
 {
 	//Alright, here is where all your dialogue will go. I hope you studied how to format dialogue carefully in the walkthrough, as there is little here I can help you with. You're going to have to write most of it yourself. So instead, I'll give you a set of examples to look at.
 	
-	"\0\s[0]This is a single line of dialogue for the main character. There is no response.\e"
+	"\0\s[0]\f[color,255,21,232]Hewwo? Are you there?\e"
 	
-	"\1\s[10]This is a single line of dialogue for the side character.\e"
+	"\1\s[10]LoCaL Status: Normal\e"
 	
 	//Single lines of dialogue like this are simple and easy to do.
 	
-	"\0\s[0]This is a two line piece of dialogue.\w8\1\s[10]This is the second line.\e"
+	"\0\s[0]\f[color,255,21,232]>LoCaL.debug.checkstatus\w8\1\s[10]LoCaL Status: Existing, ya know?\e"
 	
 	"\1\s[10]This is a two line piece of dialogue.\w8\0\s[0]This is the second line.\e"
 	
@@ -103,9 +103,43 @@ RandomTalk : nonoverlap
 	
 	"\0\s[9]This is my bored pose.\w8\1\s[19]Oh, what a surprise.\e"
 	
+	//  For a ghost to notice and comment on another ghost
+
+	// This checks if there are any other ghosts summoned.
+if ghostexcount > 0
+{
+// This checks the number of other ghosts summoned and chooses a random number based on it
+_number = RAND(ghostexcount)
+--
+// This grabs the reference name of the ghost to check against known names.
+tempname = "%(ghostexlist[_number])"
+--
+// This will tell you the reference names of your summoned ghosts to use in the "when" cases below, along with the number of ghosts.
+// Comment it out when you no longer need it for reference.
+"\0\s[0]Ghost List: %(ghostexlist)\n\n[half]Noticed %(tempname), %(_number) of %(ghostexcount)\x"
+--
+// Checking the selected loaded ghost's name vs known names to comment on them
+case tempname
+{    
+    when "Yes Man"
+    {
+		"\0\s[9]\f[color,255,21,232]Man I'm bored. \w8 \n\nHey Yes Man, wanna play some Blackjack?"
+        "\0\s[8]\f[color,255,21,232]Hey ED-E, know where I can find a high quality torrent of RALPHIE?"
+    }
+    when "CheeryBot"
+    {
+        "\0\s[5]\f[color,255,21,232]Just looking at you cheers me up, CheeryBot! :D"
+    }
+    when "Positive"
+    {
+        "\0\s[6]\f[color,255,21,232]Can I have that extra brownie if you're not gonna eat it?"
+    }
+}
+}
+
 	//Here's dialogue with all of their poses so you can see them in action. Note how the \s number changes for each of them. They don't have to match of course, you can have one character happy and one character sad and do whatever you like. These are just examples you can rewrite as you like with your own dialogue.
 	
-	"\0\s[0]I am pausing for 14ms. \w8\w6The pause is over.\e"
+	"\0\s[0]FUCKING \w8\w6\s[20]owo.\e"
 	
 	//You can use the \w tag to time your dialogue. \w goes from 1-9, although I usually leave it at 8 to be safe, and while you can't go above 9, you can layer \w tags to add up to higher numbers. Here, \w8 and \w6 combine to make 14.
 	

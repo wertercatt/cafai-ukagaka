@@ -16,9 +16,9 @@
 
 OpenSakuraMenu
 {
-		"\0\s[0]\b2This is the first random menu open dialogue."
-		"\0\s[0]\b2This is the second random menu open dialogue."
-		"\0\s[0]\b2This is the third random menu open dialogue."
+		"\0\s[7]\b2What do you want? I'm busy."
+		"\0\s[2]\b2Oh uhhh... You want help with something? ...Thought you'd never ask."
+		"\0\s[1]\b2What?? No I wasn't thinking about KAZ, shut up!"
 		--
 		MenuRun
 }
@@ -47,7 +47,8 @@ MenuRun
 	}
 	--
  	"\![*]\q[Say something,OnAiTalk]\n"
-	"\![*]\q[Say something 2,OnAiTalk]\n"
+	--
+	"\![*]\q[Show me a card,cardlookup]\n"
 	
 	//This option will force the ghost to say something from aitalk if the user clicks it. Just replace "Say something" and "Say something 2" with whatever captions you think would be appropriate for such an option. IF you don't want two options for captions, delete one of the lines.
 	//Advanced users, you can add multiple captions for any option you add to a menu you make just like this, as long as you separate it from the other options into its own section with two dashes above and below.
@@ -120,6 +121,11 @@ Select.configmenu
 		TalkConfig
 	}
 
+//Oh god oh fuck they want the experimental feature (go to card lookup!)
+Select.cardlookup
+	{
+		CardLookup
+	}
 //*********************Advanced User Info*******************************
 //Some of you may be wondering why some of these Select.options lead to another function. Why not just put the config menu coding under Select.configmenu, instead of linking to TalkConfig?
 //Basically any function that's preceded with Select. is limited in its complexity and can only be called within its own .dic file in my experience. Why should you care, you ask? Well, if you're going to link to this function any other way, such as linking it in other .dic files or as a page in a menu, it needs to be a stand-alone function so it can be properly called. I'm pretty sure.
