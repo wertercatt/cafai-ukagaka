@@ -26,7 +26,7 @@ On_username
 
 On_homeurl
 {
-	"http://www.somekindofwebhost.com/yourghostsdirectory/"
+	"http://wertercatt.com/cafai/"
 }
 
 
@@ -44,50 +44,22 @@ On_recommendrootbutton.caption
 
 On_sakura.recommendsites
  {
-	"Ghost Template Walkthrough"
+	"Let's SOSL Forums"
 	--
 	//This first line is the name that will display in the menu for your site. In this case, it would display "Ghost Template Walkthrough".
-	"%ASC(1)http://www.ashido.com/ukagaka/%ASC(2)"
+	"%ASC(1)https://letssosl.boards.net/%ASC(2)"
 	--
 	//And this is the site that it would link to. Note that a website address begins with %ASC(1) and ends with %ASC(2). Don't forget these!
 	
-	"Zarla's Twitter"
+	"Jingloria"
 	--
-	"%ASC(1)https://twitter.com/Zarla_S/%ASC(2)"
-	--
-	
-	"Zarla's Tumblr"
-	--
-	"%ASC(1)http://zarla-s.tumblr.com/%ASC(2)"
+	"%ASC(1)http://jingloria.wertercatt.com%ASC(2)"
 	--
 	
-	"Zarla's Dreamwidth"
+	"SBARG Info"
 	--
-	"%ASC(1)http://zarla.dreamwidth.org/%ASC(2)"
+	"%ASC(1)http://jingloria.wertercatt.com/lostpawns/%ASC(2)"
 	--
-	
-	"SSP"
-	--
-	"%ASC(1)http://ssp.shillest.net/%ASC(2)"
-	--
-	
-	"Crow + SSP Reference (J)"
-	--
-	"%ASC(1)http://crow.aqrs.jp/reference/all/index.html%ASC(2)"
-	--
-	
-	"Ghost Documentation (J)"
-	--
-	"%ASC(1)http://usada.sakura.vg/contents/specification.html%ASC(2)"
-	--
-	
-	"Disc-2 (J)"
-	--
-	"%ASC(1)http://disc2.s56.xrea.com/%ASC(2)"
-	
-	"UKADOC Project Wiki (J)"
-	--
-	"%ASC(1)http://ssp.shillest.net/ukadoc/manual/index.html/%ASC(2)"
 	//You don't have to space these out like this between sites, but I thought it'd make it a bit easier to read.
  }
  
