@@ -63,7 +63,7 @@ OnNameTeach
 	
 	if reference0 == "*CaFAI" //this checks to see if the user input any variation of the name "Girl". You may want to put in a check here if the user tries to name themselves the same name as your characters, since that could be confusing in dialogue. Or just a response to any kind of strange name, like Barack Obama or Cindy Crawford or Mike Nelson or Random Hajile. Or you can prevent certain offensive names if you don't want users using them. Really the power is yours here.
 	{
-		"\0\s[0]No!!!!!\w8\1\s[10]You have to pick a different alias!\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[0]No!!!!!\w8\1\s[0]You have to pick a different alias!\![open,inputbox,OnNameTeach,-1]"
 		//Note here that it's using the same tag as above to reopen the text box to let the user put in another name. You can replace the dialogue with whatever as long as you keep the \![open,inputbox,OnNameTeach,-1] tag.
 	}
 	elseif reference0 == "LoCAL" //like the above, this checks to see if the user put in Triangle. Again, this is mostly to avoid confusion in dialogue between the user and the characters.
