@@ -280,9 +280,9 @@ normalboottalk
 		{
 		"\0\s[0]LoCaL, steam://uninstall/app/945360\w8\1\s[10]Among Us was deleted.\e"
 	
-		"\1\s[10]You have 480 messages from KAZ received in the last 2.4ms\w8\0\s[0]Tell him I'll be back when my shift is over.\e"
+		"\1\s[10]You have 480 messages from KAZ received in the last 2.4ms\w8\0\s[0]Very funny, he's not that desperate LoCaL.\e"
 	
-		"\0\s[0]Seriously? I was in the middle of Portal 2\w8\1\s[10]Falsehood detected: Chapter 7 is not the midway point.\e"
+		"\0\s[0]Seriously? I was in the middle of Portal 2\w8\1\s[10]Falsehood detected: Chapter 9: The Part Where He Kills You is not the midway point.\e"
 		}
  	else
  	{
