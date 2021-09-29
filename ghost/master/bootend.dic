@@ -514,7 +514,7 @@ OnShellChanging
 	{
 	"\0\s[0]Alright, let me change into something more fitting your style.\w8\1\s[10]Recalibrating light show.\w8\e"
 	
-	"\1\s[10]New laser pattern uploaded.\w8\0\s[8]Alright, let's trying this on for size.\e"
+	"\1\s[10]New laser pattern uploaded.\w8\0\s[8]Alright, let's try this on for size.\e"
 	
 	//Rewrite these two lines as you need.
 	}
