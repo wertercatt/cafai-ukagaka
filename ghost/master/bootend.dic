@@ -382,13 +382,13 @@ OnClose
  				{
  						if weekday == 6 //here, a nested if statement is checking that if it's evening, is it also saturday? You can do this to check more specific times on other days as well. You can change this to some other day if you want, or just delete this little if/else section entirely and write your own evening related close dialogue.
  						{
- 							"\0\s[0]Cool, I still have time to make it to the Friendship Network Rave\w8\1\s[10]Plotting Second Life directions.\w8"
+ 							"\0\s[0]Cool, I still have time to make it to the Friendship Network Rave.\w8\1\s[10]Plotting Second Life directions.\w8"
  						}
  						else //if it's not saturday, then it'll do this dialogue instead.
  						{
- 							"\0\s[0]This is an evening close dialogue.\w8\1\s[10]Bye.\w8"
+ 							"\0\s[0]I wonder if KAZ is doing anything?\w8\1\s[10]His status says he isn't..\w8"
 							
- 							"\1\s[10]This is another evening close dialogue.\w8\0\s[0]Yup.\w8"
+ 							"\1\s[10]Opening the Scryfall visual spoiler for the latest Magic: The Gathering set.\w8\0\s[0]Thanks, LoCaL.\w8"
  						}
  				}
 			elseif timeslot == "latenight"
@@ -396,26 +396,26 @@ OnClose
  						if weekday == 6 //This is the same check as above to see if it's Saturday. Note that this doesn't have an else statement! Sometimes you can get away with that, but make sure you test thoroughly.
 						//Of course, you can also cut this check entirely if you want.
  						{
- 							"\0\s[0]This is a late Saturday night close dialogue.\w8"
+ 							"\0\s[0]Man, I missed the Rave tonight.\w8"
 							
- 							"\1\s[10]This is another late Saturday night close dialogue.\w8\0\s[0]Yup.\w8"
+ 							"\1\s[10]The party has ended. Resuming your YouTube Watch Later playlist.\w8\0\s[0]Eh, sounds good.\w8"
  						}
 						
- 						"\1\s[10]This is a late night close dialogue.\w8\0\s[0]That it is.\w8"
+ 						"\1\s[10]Beginning MTG Arena Standard Ranked matchmaking.\w8\0\s[0]Hey, use the Lifegain deck! No, the good one!\w8"
 						
-						"\0\s[0]This is another late night close dialogue.\w8\1\s[10]Done.\w8"
+						"\0\s[0]Hey, register my code cards on TCG Live would you?\w8\1\s[10]Scanning QR codes..\w8"
  				}
 			else //like above, this is the midnight time slot since it's the last one left.
  				{
  						if weekday == 0 //checking if it's the middle of the night on Sunday
  						{
- 							"\1\s[10]This is a middle of the night Sunday close dialogue.\w8\0\s[0]From midnight to five AM on Sunday.\w8"
+ 							"\1\s[10]Monitoring consort weekly rituals.\w8\0\s[0]What are they up to tonight?\w8"
  						}
-						"\0\s[0]This is a middle of the night close dialogue.\w8\1\s[10]Very late at night.\w8"
+						"\0\s[0]Well, off to play Team Defense Fort 2.\w8\1\s[10]Queueing for ctf_2fort.bsp.\w8"
 						
-						"\1\s[10]This is another middle of the night close dialogue.\w8"
+						"\1\s[10]Rebooting servers for nightly maintenance. Be back in 2.89ms!\w8"
 						
-						"\1\s[10]This is the third middle of the night close dialogue.\w8\0\s[0]So it is.\w8"
+						"\1\s[10]You have received a trade notification on Steam.\w8\0\s[0]Let me go check that out.\w8"
 				}
 			}
 				
