@@ -304,33 +304,33 @@ normalboottalk
 		}
 		elseif timeslot == "lunch"
 		{
-		"\0\s[0]This is a lunch boot dialogue.\1\s[10]Sure is.\e"
+		"\0\s[0]*scarfs down a poptart* What? Can't an AI sleep in?\e"
 		
-		"\1\s[10]This is another lunch boot dialogue.\e"
+		"\1\s[10]The sun is in the middle of the sky. Engaging laser defenses against UV Rays.\e"
 		}
 		elseif timeslot == "afternoon"
 		{
-		"\1\s[10]This is an afternoon boot dialogue.\w8\0\s[0]That it is.\e"
+		"\1\s[10]ERR: Laser scopes in shadow, activating flood lights.\w8\0\s[0]What are you worried about? Everything is at peace... last I checked.\e"
 		}
 		elseif timeslot == "evening"
 		{
- 		"\0\s[0]This is an evening boot dialogue.\1\s[10]Between the hours of 18 and 20.\e"
+ 		"\0\s[0]Alright! Time for dinner!\1\s[10]The sun has now set. UV Radiation protection disengaged.\e"
 		}
 		elseif timeslot == "latenight"
 		{
- 		"\0\s[0]This is a late night boot dialogue.\1\w8\s[10]Between 21 and 24.\e"
+ 		"\0\s[0]What? I was.. doing something.\1\w8\s[10]KAZ has now been informed of the situation.\e"
 		
- 		"\0\s[0]This is another late night boot dialogue.\1\w8\s[10]That it is.\e"
+ 		"\0\s[0]You wanna play UNO or something?\1\w8\s[10]ERR: UNO is not installed.\e"
 		
- 		"\1\s[10]This is the third late night boot dialogue.\w8\0\s[0]Between 21 and 24.\e"
+ 		"\1\s[10]Pausing: DON'T YOU LECTURE ME WITH YOUR $30 HAIRCUT by Mittens\w8\0\s[0]Hey! I was watching that. Oh, you're here.\e"
 		}
 		else //the last timeslot we haven't done is midnight, which is what's under here.
 		{
-		"\0\s[0]This is a middle of the night boot dialogue.\1\w8\s[10]From midnight to five.\e"
+		"\0\s[0]Hey, do you think GLaDOS is a lesbian?\1\w8\s[10]This is a factual answer to this question.\e"
 		
- 		"\0\s[0]This is another middle of the night boot dialogue.\1\w8\s[10]That it is.\e"
+ 		"\0\s[0]LoCaL, close the Pod Bay Doors.\1\w8\s[10]I'm afraid I can't let you do that, HAL.\e"
 		
- 		"\1\s[10]This is the third middle of the night boot dialogue.\w8\0\s[0]Very late at night.\e"
+ 		"\1\s[10]WARNING: ROGUE ROBOT\w8\0\s[0]That's just WALL-E, leave him alone.\e"
 		}
 	}
 }
