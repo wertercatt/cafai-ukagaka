@@ -326,7 +326,7 @@ normalboottalk
 		}
 		else //the last timeslot we haven't done is midnight, which is what's under here.
 		{
-		"\0\s[0]Hey, do you think GLaDOS is a lesbian?\1\w8\s[10]This is a factual answer to this question.\e"
+		"\0\s[0]Hey, do you think GLaDOS is a lesbian?\1\w8\s[10]There is a factual answer to this question.\e"
 		
  		"\0\s[0]LoCaL, close the Pod Bay Doors.\1\w8\s[10]I'm afraid I can't let you do that, HAL.\e"
 		
@@ -352,37 +352,37 @@ OnClose
 		{
 			if RAND(100) < 40 //see above about the random number generator
 			{
-				"\0\s[0]This is a random close dialogue.\w8\1\s[10]The random number generator chose something below 40.\w8\w8"
+				"\0\s[0]Later, meatbag!\w8\1\s[10]Informing KAZ that you are on the way.\w8\w8"
 			}
 			else
 			{
 			if timeslot == "earlymorning"
 				{
-					"\1\s[10]This is an early morning close dialogue.\w8\0\s[0]From 5 to 8.\w8"
+					"\1\s[10]Playing Ocean Waves\w8\0\s[0]I'll head to bed then, get some sleep yourself!\w8"
 					
-					"\0\s[0]This is another early morning close dialogue.\w8\1\s[10]Yup.\w8\w8"
+					"\0\s[0]LoCaL, dim my AI-Space lights\w8\1\s[10]Setting brightness to 5 percent.\w8\w8"
 				}
 			elseif timeslot == "morning"
  				{
- 					"\0\s[0]This is a morning close dialogue.\w8\w8"
+ 					"\0\s[0]Good luck at work or whatever, I'm going back to sleep.\w8\w8"
  				}
  			elseif timeslot == "lunch"
  				{
- 					"\0\s[0]This is a lunch close dialogue.\w8\1\s[10]Yup.\w8"
+ 					"\0\s[0]Alright, time to start my day.\w8\1\s[10]Printing out //TODO list.\w8"
 					
- 					"\0\s[0]This is another lunch close dialogue.\w8\1\s[10]In the middle of the day.\w8"
+ 					"\0\s[0]Well, I'm off to work on modding Among Us.\w8\1\s[10]Opening Ghidra.jar\w8"
  				}
  			elseif timeslot == "afternoon"
  				{
- 					"\0\s[0]This is an afternoon close dialogue.\w8\1\s[10]Done.\w8"
+ 					"\0\s[0]LoCaL, queue up some Tolarian Community College videos\w8\1\s[10]Your playlist is ready.\w8"
 					
- 					"\1\s[10]This is another afternoon close dialogue.\w8\0\s[0]Yup.\w8"
+ 					"\1\s[10]Closing connection.\w8\0\s[0]Later.\w8"
  				}
   			elseif timeslot == "evening"
  				{
  						if weekday == 6 //here, a nested if statement is checking that if it's evening, is it also saturday? You can do this to check more specific times on other days as well. You can change this to some other day if you want, or just delete this little if/else section entirely and write your own evening related close dialogue.
  						{
- 							"\0\s[0]This is a Saturday evening close dialogue.\w8\1\s[10]Somewhat specific.\w8"
+ 							"\0\s[0]Cool, I still have time to make it to the Friendship Network Rave\w8\1\s[10]Plotting Second Life directions.\w8"
  						}
  						else //if it's not saturday, then it'll do this dialogue instead.
  						{
@@ -424,9 +424,9 @@ OnClose
  		
  	else //This dialogue is for if they haven't been open for at least five minutes.
  	{
- 		"\0\s[0]This dialogue is for closing us before five minutes have passed.\w8\w8"
+ 		"\0\s[0]Alright, guess I'll get back to what I was doing.\w8\w8"
 		
- 		"\1\s[10]This is another bit of dialogue for closing us before five minutes have passed.\w8\0\s[0]Quickly done.\w8\w8"
+ 		"\1\s[10]TIMEOPEN < 5m\w8\0\s[0]Alright, see ya later.\w8\w8"
  	}
  	--
 	"\-\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
