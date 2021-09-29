@@ -54,7 +54,7 @@ OnFirstBoot
 		//In Notepad++ with C language, you'll also notice that this dialogue is black instead of grey. This is because of the use of the backwards slash as mentioned in the advanced section of the SakuraScripting page. Do you see near the bottom where it has \n\n[half]/ with the other slash at the end before the choices are listed? You will want to replace dialogue up that \n\n[half], but do not mess with the choices beyond that unless you know what you're doing.
 		//Always make sure to keep your dialogue in the quotation marks! And remember, you can't use quotation marks IN dialogue either. You can use two single apostrophes instead if you must. And REMEMBER what I said about \![enter,passivemode]! Do NOT delete that tag!
 		
-		"\![enter,passivemode]\1\s[10]\0\s[0]Katie says that I have to entertain you apparently. I'm *CaFAI, and that widget over there tracks the status of LoCaL\w8\1\s[10]LoCaL Status: ERR lp0 on fire \w8\0\s[0]\n\n[half]What do you mean you're on fire again???? \w8\1\n\n[half]\s[10]ERR: Sensors Disabled\w8\0\s[0]\n\n[half]\x\w8\1\c\s[0]What pronouns do you use?\n\n[half]/
+		"\![enter,passivemode]\1\s[10]\0\s[0]Katie says that I have to entertain you apparently. I'm *CaFAI, and that widget over there tracks the status of LoCaL\w8\1\s[10]LoCaL Status: ERR lp0 on fire \w8\0\s[0]\n\n[half]What do you mean you're on fire again???? \w8\1\n\n[half]\s[10]ERR: Sensors Disabled\w8\0\s[0]\n\n[half]\x\w8\0\c\s[0]What pronouns do you use?\n\n[half]/
 		\w5\_q\![*]\q[He/Him/His,choicefirsthehim]\n/
 		\![*]\q[She/Her/Hers,choicefirstsheher]\n/
 		\![*]\q[They/Them/Their,choicefirsttheythem]\e"
@@ -298,9 +298,9 @@ normalboottalk
 		}
 		elseif timeslot == "morning"
 		{
-		"\0\s[0]This is a morning boot dialogue.\e"
+		"\0\s[0]Why are you waking me up before Noon???\e"
 		
-		"\1\s[10]This is another morning boot dialogue.\w8\0\s[0]Yup.\e"
+		"\1\s[10]Current time is %(hour):%(minute)\w8\0\s[0]Why is it so early.\e"
 		}
 		elseif timeslot == "lunch"
 		{
