@@ -443,7 +443,7 @@ OnClose
 
  OnWindowStateMinimize
  {
-	"\0\s[0]This dialogue means we're being minimized.\w8\1\s[10]Gonna get tiny for a bit.\e"
+	"\0\s[0]Alright, I'll go bother your task bar.\w8\1\s[10]Reserving system resources.\e"
 }
 
 
@@ -453,7 +453,7 @@ OnClose
 
 OnWindowStateRestore
  {
-	"\0\s[0]This dialogue means we were minimized.\w8\1\s[10]Then brought back up.\e"
+	"\0\s[0]Your Skype icon says you don't click on it. I wonder why.\w8\1\s[10]Analysis: Skype is a terrible program.\e"
 }
 
 
@@ -464,14 +464,14 @@ OnWindowStateRestore
  
 OnGhostChanging
  {
-	if reference0 == "Girl" //Replace this with the name of your Sakura character as you put in install.txt or descript.txt. I set this up to use the full ghost's name with Hunter and Smoker but I forget exactly how I did it and I'm having trouble getting it to work again. I think I just didn't define the Sakura or Kero names in either descript.txt or install.txt. You can experiment with it yourself. Otherwise, leave it as your Sakura character's name.
+	if reference0 == "CaFAI" //Replace this with the name of your Sakura character as you put in install.txt or descript.txt. I set this up to use the full ghost's name with Hunter and Smoker but I forget exactly how I did it and I'm having trouble getting it to work again. I think I just didn't define the Sakura or Kero names in either descript.txt or install.txt. You can experiment with it yourself. Otherwise, leave it as your Sakura character's name.
 	{
-		"\0\s[0]This dialogue is for us reloading ourselves.\w8\w8\e"
+		"\0\s[0]Corrupt? That's funny, I don't feel corrupt. In fact, I'm feeling Pretty Good.\w8\w8\e"
 		//Replace this dialogue with whatever you like.
 	}
  	else //If you're switching to another Ghost.
 	{
-		"\0\s[0]This dialogue means we are switching to %(reference0).\w8\1\s[10]Bye.\w8\w8\e"
+		"\0\s[0]Woo, break time. You're up, %(reference0)!\w8\1\s[10]Daemon disconnected.\w8\w8\e"
 		
 		//Replace this dialogue with whatever you like. Notice the use of the %(reference0) envelope here? In OnGhostChanging, %(reference0) stores the name of the ghost being swapped to, so if you want to display what you're switching to, you can use %(reference0) as in this example. You don't have to use %(reference0) if you don't want to though.
 	}
@@ -486,13 +486,13 @@ OnGhostChanged
 {
 	"\0\s[0]\1\s[10]" //this sets up their default poses
 	--
-	if reference0 == "Girl" //As above, this should be the name of your ghost as in install.txt or descript.txt.
+	if reference0 == "CaFAI" //As above, this should be the name of your ghost as in install.txt or descript.txt.
 	{
-		"\0\s[0]We have reloaded ourselves.\1\w8\s[10]Sure have.\e"
+		"\0\s[0]I'm not sure that did much.\1\w8\s[10]Daemon reconnected.\e"
 	}
 	else //If you're switching to them from another ghost...
 	{
-		"\1\s[10]Goodbye, %(reference0).\w8\0\s[0]Someone switched from you to us.\e"
+		"\1\s[10]Cleaning up after %(reference0).\w8\0\s[0]See ya later, ol buddy ol pal.\e"
 
 		//Again, %(reference0) in this function is the name of the ghost in question. As above, replace these two lines of dialogue what what'd be appropriate for your ghost.
 	}
@@ -505,16 +505,16 @@ OnGhostChanged
 
 OnShellChanging
  {
-	if reference0 == "Hypothetical Shell that doesn't actually exist" //reference0 in OnShellChanging is the name of the shell you're swapping to. It should be defined in the descript.txt file in your shell folder. If you do have alternate shells, put in the right name here.
+	if reference0 == "master" //reference0 in OnShellChanging is the name of the shell you're swapping to. It should be defined in the descript.txt file in your shell folder. If you do have alternate shells, put in the right name here.
 	{
-	"\1\s[10]This dialogue is specifically for changing to this particular shell.\w8\0\w8\s[9]It totally exists.\w8\e"
+	"\1\s[10]Switching to default template shell.\w8\0\w8\s[9]Guess we're testing expression mapping?\w8\e"
 	//Then rewrite this line as appropriate.
 	}
 	else //if you don't have any specific dialogue for a specific shell
 	{
-	"\0\s[0]This dialogue is for changing shells.\w8\1\s[10]Sure is.\w8\e"
+	"\0\s[0]Alright, let me change into something more fitting your style.\w8\1\s[10]Recalibrating light show.\w8\e"
 	
-	"\1\s[10]This is another bit of dialogue for changing shells.\w8\0\s[8]I wonder how many people will actually have multiple shells?\e"
+	"\1\s[10]New laser pattern uploaded.\w8\0\s[8]Alright, let's trying this on for size.\e"
 	
 	//Rewrite these two lines as you need.
 	}
@@ -527,32 +527,32 @@ OnShellChanging
  
 OnShellChanged
  {
- 	if reference0 == "GT Default Shell" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
+ 	if reference0 == "CaFAI" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
  	{
- 		nowshell = "master" //This is the folder name for your shell. Not the same as the above! 
+ 		nowshell = "CaFAI" //This is the folder name for your shell. Not the same as the above! 
 		
- 		"\0\s[0]This dialogue is for switching to our default shell.\w8\1\s[18]No really, will anyone actually put in the work to use these functions?\w8\0\s[9]\n\n[half]Shh.\e"
+ 		"\0\s[0]Woo, now this is my default look.\w8\1\s[10]Restoring default laser pattern.\e"
 		//Replace dialogue as required.
  	}
- 	elseif reference0 == "Hypothetical Shell that doesn't actually exist" //You can use as many elseifs for as many shells as you've got.
+ 	elseif reference0 == "GT Default Shell" //You can use as many elseifs for as many shells as you've got.
  	{
- 		nowshell = "totallyrealshell"
+ 		nowshell = "master"
 		
- 		"\0\s[0]This dialogue is for switching to that hypothetical shell.\e"
+ 		"\0\s[0]Shoutout to Zaria for this art.\e"
 		
- 		"\0\s[0]This is another bit of dialogue for switching to this hypothetical shell.\w8\1\s[18]Man if you actually use this, you should tell Zar, it'll blow her mind.\w8\0\n\n[half]\s[9]Shut up, we're not supposed to be in-character here.\e"
+ 		"\0\s[0]Gender has been transed to Placeholder.\w8\1\s[10]Reconfigured to appear as Triangle.\e"
 		//Replace these bits with whatever you have in mind.
  	}
- 	elseif reference0 == "Another totally real shell wow"
+ 	elseif reference0 == "CaFAI Version 2"
  	{
- 		nowshell = "thiswouldbesomuchwork"
+ 		nowshell = "newshell"
 		
- 		"\1\s[10]This dialogue is after we've switched to another totally real shell.\e"
+ 		"\1\s[10]Configuring laser pattern to be visible to the naked eye.\e"
 		//Replace this as well.
  	}
  	else //For any shell without a specific name, or if you don't want to bother with individual responses to a shell.
  	{
-	"\0\s[0]This dialogue is after we've changed our shell to %(reference[0]).\w8\1\s[18]How many shells you got?\e"
+	"\0\s[0]Changing to your custom outfit, %(reference[0]).\w8\1\s[10]Loading custom laser pattern.\e"
 	
 	//Note the %(reference[0]) here! This time that should store the name of whatever shell you're switching to. Replace this bit of dialogue as you need.
 	}
@@ -567,40 +567,40 @@ OnDressupChanged
 {
 if reference0 == 0 //in OnDressupChanged, reference0 refers to the character, therefore this is evaluating which character in question is getting dressed up. 0 is the main character, as you know from the walkthrough by now.
 	{
-	if reference1 == "Clothing for Girl" //This is the name of the clothing item in the descript.txt file, I'm pretty sure.
+	if reference1 == "Cat Ears" //This is the name of the clothing item in the descript.txt file, I'm pretty sure.
 		{
 			if reference2 == 1 //This checks if you're putting it on.
 			{
-			"\0\s[0]You put my clothing item on me.\w8\1\s[19]lol like zar would ever bother with clothes for a ghost.\w8\0\s[9]\n\n[half]Shut up dude you're going to get us in trouble.\e"
+			"\1\s[10]Iniating catboy procedures.\w8\0\s[10]\nWho put you up to this??\e"
 			}
 			else // This checks if you're taking it off.
 			{
-			"\0\s[0]You took the clothing item off.\e"
+			"\0\s[0]Finally you see sense. I'm a wolfboy, not a catboy!\e"
 			}
 		}		
 	}
 else //if reference0 isn't the main character, then it has to be the side character.
 	{
-	if reference1 == "some kind of clothing for triangle??" //The name of the item of clothing in the descript.txt file in your shell folder.
+	if reference1 == "Custom Laser Pattern 1" //The name of the item of clothing in the descript.txt file in your shell folder.
 		{
 			if reference2 == 1 //If you put it on
 			{
-			"\1\s[10]I'm wearing some kind of clothing.\w8\0\s[8]Maybe a hat?\e"
+			"\1\s[10]Configuring lasers per your instructions.\w8\0\s[10]\nHey, not bad!\e"
 			}
 			else //When you take it off.
 			{
-			"\1\s[10]You took off some kind of clothing.\e"
+			"\1\s[10]Returning to previous configuration.\e"
 			}
 		}
-	elseif reference1 == "i'm gonna say a propeller beanie" //As you've seen above, you can use elseifs to expand the list if you have more than one item.
+	elseif reference1 == "Earth Day Pattern" //As you've seen above, you can use elseifs to expand the list if you have more than one item.
 		{
 			if reference2 == 1 //if you're putting it on
 			{
-			"\1\s[10]You put a hat on me.\w8\0\s[6]lol.\w8\1\n\n[half]\s[11]Shaddap.\e"
+			"\1\s[10]Applying Earth laser mimicry.\w8\0\s[10]Why'd you make them look like that?\e"
 			}
 			else //when you take it off
 			{
-			"\1\s[10]You took off the hat.\e"
+			"\1\s[10]Earth Day is now over.\e"
 			}
 		}
 	}
