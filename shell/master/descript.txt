@@ -7,20 +7,14 @@
 seriko.alignmenttodesktop,free
 
 
-//Use_self_alpha
-//This makes it so you don't have to use pna files for your shell. Saves a ton of time and effort.
-
-seriko.use_self_alpha,1
-
-
 //General Information
 //A few things here, a lot fairly similar to the descript.txt for your ghost. charset and type will be unchanged. Replace name with the name for your shell and put in your name for the craftman and the url. 
 
 charset,UTF-8
 type,shell
-name,GT Default Shell
-craftman,zarla
-craftmanurl,http://www.ashido.com/ukagaka/walkthrough.html
+name,CaFAI
+craftman,C10H14N2
+craftmanurl,https://c10h14n2-art.tumblr.com/
 
 
 //Balloon Co-ordinates
